@@ -1,18 +1,20 @@
 #include "fita.hpp"
 #include "msgassert.hpp"
+#include <sstream>
 
 void Fita::read(Page *p, int &n) const {
     for (int i = 0; i < n; ++i) {
-        inf >> p[i].URL >> p[i].visits;
-
+        string line;
+        std::getline(inf, line);
+        std::stringstream ss(line);
         // Tome cuidado para não chegar ao final do arquivo sem completar o laço
-        // WARNING: por enquanto não sei se isso é necessário
         if (inf.eof()) n = i;
+        ss >> p[i].URL >> p[i].visits;
     }
 }
 
 void Fita::write(Page *p, const int &n) const {
-    if (n <= 0) return; // Não escreva arquivos vazios
+    ro++;
     std::ofstream roOuf;
     roOuf.open("rodada-" + std::to_string(ro) + ".txt");
     erroAssert(roOuf.is_open(), "Erro ao abrir arquivo de rodada");

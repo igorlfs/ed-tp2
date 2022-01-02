@@ -3,7 +3,7 @@
 
 std::ifstream inf;
 std::ofstream ouf;
-int ro = 1; // Round tracker
+int ro = 0; // Round tracker
 
 int init(int argc, char *argv[]);
 void finish();
@@ -14,12 +14,11 @@ int main(int argc, char *argv[]) {
     Page *p = new Page[n];
     Fita F;
 
-    while (inf.good()) {
+    do {
         F.read(p, n);
         F.quickSort(p, n);
-        F.write(p, n);
-        ro++;
-    }
+        if (n > 0) F.write(p, n);
+    } while (inf.good());
 
     delete[] p;
 
