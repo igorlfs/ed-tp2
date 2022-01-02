@@ -17,9 +17,9 @@ class Fita {
     void write(Page *p, const int &n) const;
 
   private:
-    void sort(int left, int right, Page *p);
-    void partition(int left, int right, int *i, int *j, Page *p);
-    int choosePivot(const int a, const int b, const int c);
+    void sort(const int &left, const int &right, Page *p) const;
+    void partition(const int &left, const int &right, int *i, int *j,
+                   Page *p) const;
 };
 
 extern std::ifstream inf;

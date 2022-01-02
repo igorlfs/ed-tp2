@@ -24,7 +24,7 @@ void Fita::write(Page *p, const int &n) const {
     erroAssert(!roundRo.is_open(), "Erro ao fechar arquivo de rodada");
 }
 
-void Fita::sort(int left, int right, Page *p) {
+void Fita::sort(const int &left, const int &right, Page *p) const {
     int i, j;
 
     partition(left, right, &i, &j, p);
@@ -33,7 +33,8 @@ void Fita::sort(int left, int right, Page *p) {
     if (i < right) sort(i, right, p);
 }
 
-void Fita::partition(int left, int right, int *i, int *j, Page *p) {
+void Fita::partition(const int &left, const int &right, int *i, int *j,
+                     Page *p) const {
     *i = left;
     *j = right;
 
