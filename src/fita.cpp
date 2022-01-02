@@ -38,15 +38,15 @@ void Fita::partition(const int &left, const int &right, int *i, int *j,
     *i = left;
     *j = right;
 
-    int pBeg = p[*i].visits;
-    int pMid = p[(*i + *j) / 2].visits;
-    int pEnd = p[*j].visits;
+    Page pBeg = p[*i];
+    Page pMid = p[(*i + *j) / 2];
+    Page pEnd = p[*j];
 
-    int pivot = choosePivot(pBeg, pMid, pEnd);
+    Page pivot = choosePivot(pBeg, pMid, pEnd);
 
     do {
-        while (pivot < p[*i].visits) (*i)++;
-        while (pivot > p[*j].visits) (*j)--;
+        while (pivot < p[*i]) (*i)++;
+        while (pivot > p[*j]) (*j)--;
 
         if (*i <= *j) {
             // TODO: usar insertionSort para vetores pequenos
@@ -58,7 +58,7 @@ void Fita::partition(const int &left, const int &right, int *i, int *j,
     } while (*i <= *j);
 }
 
-int Fita::choosePivot(const int a, const int b, const int c) {
+Page Fita::choosePivot(const Page &a, const Page &b, const Page &c) const {
     if (a < b) {
         if (a > c) return a;
         else if (b < c) return b;

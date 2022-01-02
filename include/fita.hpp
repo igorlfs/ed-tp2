@@ -10,6 +10,16 @@ struct Page {
     string URL;
 };
 
+inline bool operator<(const Page &lhs, const Page &rhs) {
+    if (lhs.visits < rhs.visits) return true;
+    else if (lhs.visits == rhs.visits && lhs.URL > rhs.URL) return true;
+    return false;
+}
+
+inline bool operator>(const Page &lhs, const Page &rhs) {
+    return operator<(rhs, lhs);
+}
+
 class Fita {
   public:
     void read(Page *p, int &n) const;
@@ -20,6 +30,7 @@ class Fita {
     void sort(const int &left, const int &right, Page *p) const;
     void partition(const int &left, const int &right, int *i, int *j,
                    Page *p) const;
+    Page choosePivot(const Page &a, const Page &b, const Page &c) const;
 };
 
 extern std::ifstream inf;
