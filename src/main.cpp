@@ -11,7 +11,7 @@ void finish();
 int main(int argc, char *argv[]) {
     int n = init(argc, argv);
 
-    Page *p = new Page[n]; // TODO: usar alocação dinâmica
+    Page *p = new Page[n];
     Fita F;
 
     while (inf.good()) {
