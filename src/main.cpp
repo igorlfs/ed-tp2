@@ -23,6 +23,15 @@ int main(int argc, char *argv[]) {
 
     delete[] p;
 
+    // PERF: Não consigo inserir essas URLs pós quicksort?
+    Page q[ro - 2];
+    for (int i = 0; i < ro - 2; ++i) {
+        std::ifstream roInf;
+        roInf.open("rodada-" + std::to_string(i + 1) + ".txt");
+        roInf >> q[i].URL >> q[i].visits;
+        std::cout << i << ' ' << q[i].visits << '\n';
+    }
+
     finish();
 
     return 0;

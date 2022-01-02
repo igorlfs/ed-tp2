@@ -13,15 +13,14 @@ void Fita::read(Page *p, int &n) const {
 
 void Fita::write(Page *p, const int &n) const {
     if (n <= 0) return; // Não escreva arquivos vazios
-    std::ofstream roundRo;
-    roundRo.open("rodada-" + std::to_string(ro) + ".txt");
-    erroAssert(roundRo.is_open(), "Erro ao abrir arquivo de rodada");
+    std::ofstream roOuf;
+    roOuf.open("rodada-" + std::to_string(ro) + ".txt");
+    erroAssert(roOuf.is_open(), "Erro ao abrir arquivo de rodada");
 
-    for (int i = 0; i < n; ++i)
-        roundRo << p[i].URL << ' ' << p[i].visits << '\n';
+    for (int i = 0; i < n; ++i) roOuf << p[i].URL << ' ' << p[i].visits << '\n';
 
-    roundRo.close();
-    erroAssert(!roundRo.is_open(), "Erro ao fechar arquivo de rodada");
+    roOuf.close();
+    erroAssert(!roOuf.is_open(), "Erro ao fechar arquivo de rodada");
 }
 
 void Fita::sort(const int &left, const int &right, Page *p) const {
