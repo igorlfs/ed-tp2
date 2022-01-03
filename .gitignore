@@ -3,5 +3,6 @@ obj/*
 bin/*
 # ignore editor's files
 .cache/
+compile_commands.json
 # ignore tracklist 
 TODO
