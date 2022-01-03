@@ -11,7 +11,8 @@ void finish();
 int main(int argc, char *argv[]) {
     int n = init(argc, argv);
 
-    Page *p = new Page[n];
+    Page *p = new (std::nothrow) Page[n];
+    erroAssert(p, "Erro ao alocar memória para leitura de páginas");
     Fita F;
 
     do {
@@ -26,7 +27,9 @@ int main(int argc, char *argv[]) {
     std::ifstream roInf[ro + 1];
     for (int i = 1; i <= ro; ++i) {
         roInf[i].open("rodada-" + std::to_string(i) + ".txt");
+        erroAssert(roInf[i].is_open(), "Erro ao abrir arquivo de rodada");
         roInf[i] >> q[i].URL >> q[i].visits;
+        erroAssert(!roInf[i].bad(), "Erro ao escrever arquivo de rodada");
         q[i].round = i;
     }
 
