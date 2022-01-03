@@ -20,6 +20,10 @@ inline bool operator>(const Page &lhs, const Page &rhs) {
     return operator<(rhs, lhs);
 }
 
+inline bool operator>=(const Page &lhs, const Page &rhs) {
+    return !operator<(lhs, rhs);
+}
+
 class Fita {
   public:
     void read(Page *p, int &n) const;
