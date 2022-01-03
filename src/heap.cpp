@@ -1,4 +1,5 @@
 #include "heap.hpp"
+#include "msgassert.hpp"
 #include <iostream>
 
 void Heap::build(Page *p, const int &n) const {
@@ -26,10 +27,7 @@ void Heap::remake(const int &left, const int &right, Page *p) const {
 
 Page Heap::pop(Page *p, int &n) const {
     Page max;
-    if (n < 1) {
-        std::cerr << "cuuu\n";
-        abort(); // tratar exceção
-    }
+    erroAssert(n >= 1, "Heap vazio, não é possível resolver");
     max = p[1];
     p[1] = p[n];
     n--;
