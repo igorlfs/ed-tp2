@@ -30,6 +30,7 @@ class Fita {
     void read(Page *p, int &n) const;
     void quickSort(Page *p, const int &n) { sort(0, n - 1, p); }
     void write(Page *p, const int &n) const;
+    void sortFitas(int &n);
 
   private:
     void sort(const int &left, const int &right, Page *p) const;

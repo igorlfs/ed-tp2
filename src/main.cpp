@@ -10,41 +10,37 @@ void finish();
 
 int main(int argc, char *argv[]) {
     int n = init(argc, argv);
-
-    Page *p = new (std::nothrow) Page[n];
-    erroAssert(p, "Erro ao alocar memória para leitura de páginas");
     Fita F;
-
-    do {
-        F.read(p, n);
-        F.quickSort(p, n);
-        if (n > 0) F.write(p, n);
-    } while (inf.good());
-
-    delete[] p;
+    F.sortFitas(n);
 
     Page q[ro + 1]; // q[0] é indefinido (não tem problema no heap)
     std::ifstream roInf[ro + 1];
+
     for (int i = 1; i <= ro; ++i) {
         roInf[i].open("rodada-" + std::to_string(i) + ".txt");
-        erroAssert(roInf[i].is_open(), "Erro ao abrir arquivo de rodada");
+        erroAssert(roInf[i].is_open(),
+                   "Erro ao abrir arquivo de rodada: " << i);
         roInf[i] >> q[i].URL >> q[i].visits;
-        erroAssert(!roInf[i].bad(), "Erro ao escrever arquivo de rodada");
+        erroAssert(!roInf[i].bad(),
+                   "Erro ao ler arquivo de rodada para construir heap");
         q[i].round = i;
     }
 
     Heap H;
+
     H.build(q, ro);
     while (ro > 0) {
         Page x = H.pop(q, ro);
-        ouf << x.URL << ' ' << x.visits << '\n';
         int origin = x.round;
+
+        ouf << x.URL << ' ' << x.visits << '\n';
         if (!roInf[origin].eof()) {
             Page y;
+
+            y.round = origin;
             roInf[origin] >> y.URL >> y.visits;
             erroAssert(!roInf[origin].bad(),
                        "Erro ao escrever arquivo de rodada");
-            y.round = origin;
             if (!y.URL.empty()) H.push(q, y, ro);
         } else {
             roInf[origin].close();

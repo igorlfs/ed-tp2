@@ -11,6 +11,7 @@ void Fita::read(Page *p, int &n) const {
         if (inf.eof()) n = i;
         ss >> p[i].URL >> p[i].visits;
     }
+    erroAssert(!inf.bad(), "Erro na leitura de rodadas");
 }
 
 void Fita::write(Page *p, const int &n) const {
@@ -21,8 +22,22 @@ void Fita::write(Page *p, const int &n) const {
 
     for (int i = 0; i < n; ++i) roOuf << p[i].URL << ' ' << p[i].visits << '\n';
 
+    erroAssert(!roOuf.bad(), "Erro na escrita de rodadas");
     roOuf.close();
     erroAssert(!roOuf.is_open(), "Erro ao fechar arquivo de rodada");
+}
+
+void Fita::sortFitas(int &n) {
+    Page *p = new (std::nothrow) Page[n];
+    erroAssert(p, "Erro ao alocar memória para leitura de páginas");
+
+    do {
+        read(p, n);
+        quickSort(p, n);
+        if (n > 0) write(p, n);
+    } while (inf.good());
+
+    delete[] p;
 }
 
 void Fita::sort(const int &left, const int &right, Page *p) const {
