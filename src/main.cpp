@@ -29,6 +29,25 @@ int main(int argc, char *argv[]) {
         roInf[i] >> q[i].URL >> q[i].visits;
         q[i].round = i;
     }
+
+    Heap H;
+    H.build(q, ro);
+    while (ro > 0) {
+        Page x = H.pop(q, ro);
+        ouf << x.URL << ' ' << x.visits << '\n';
+        int origin = x.round;
+        if (!roInf[origin].eof()) {
+            Page y;
+            roInf[origin] >> y.URL >> y.visits;
+            erroAssert(!roInf[origin].bad(),
+                       "Erro ao escrever arquivo de rodada");
+            y.round = origin;
+            if (!y.URL.empty()) H.push(q, y, ro);
+        } else {
+            roInf[origin].close();
+            erroAssert(!roInf[origin].is_open(),
+                       "Erro ao fechar arquivo de rodada");
+        }
     }
 
     finish();
