@@ -8,6 +8,7 @@ using std::string;
 struct Page {
     int visits;
     string URL;
+    int round{0};
 };
 
 inline bool operator<(const Page &lhs, const Page &rhs) {
