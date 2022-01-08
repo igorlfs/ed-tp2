@@ -20,7 +20,8 @@ void Fita::write(Page *p, const int &n) const {
     roOuf.open("rodada-" + std::to_string(ro) + ".txt");
     erroAssert(roOuf.is_open(), "Erro ao abrir arquivo de rodada");
 
-    for (int i = 0; i < n; ++i) roOuf << p[i].URL << ' ' << p[i].visits << '\n';
+    for (int i = 0; i < n; ++i)
+        roOuf << p[i].URL << ' ' << p[i].visits << '\n';
 
     erroAssert(!roOuf.bad(), "Erro na escrita de rodadas");
     roOuf.close();
@@ -61,8 +62,10 @@ void Fita::partition(const int &left, const int &right, int *i, int *j,
     Page pivot = choosePivot(pBeg, pMid, pEnd);
 
     do {
-        while (pivot < p[*i]) (*i)++;
-        while (pivot > p[*j]) (*j)--;
+        while (pivot < p[*i])
+            (*i)++;
+        while (pivot > p[*j])
+            (*j)--;
 
         if (*i <= *j) {
             // TODO: usar insertionSort para vetores pequenos
