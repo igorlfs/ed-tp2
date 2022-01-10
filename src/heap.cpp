@@ -30,17 +30,17 @@ void Heap::build(const int &n) {
 
 void Heap::remake(const int &left, const int &right) {
     int i = left, j = i * 2;
-    Page aux = pages[i];
+    Page aux = this->pages[i];
 
     while (j <= right) {
         if (j < right)
-            if (pages[j] < pages[j + 1]) j++;
-        if (aux >= pages[j]) break;
-        pages[i] = pages[j];
+            if (this->pages[j] < this->pages[j + 1]) j++;
+        if (aux >= this->pages[j]) break;
+        this->pages[i] = this->pages[j];
         i = j;
         j = i * 2;
     }
-    pages[i] = aux;
+    this->pages[i] = aux;
 }
 
 Page Heap::pop() {
@@ -54,9 +54,9 @@ Page Heap::pop() {
 }
 
 void Heap::push(const Page &q) {
-    size++;
-    pages[size] = q;
-    remake(1, size);
+    this->size++;
+    this->pages[this->size] = q;
+    remake(1, this->size);
 }
 
 void Heap::intercalate(std::ifstream *roundInputFile) {
