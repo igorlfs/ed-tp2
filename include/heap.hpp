@@ -4,9 +4,16 @@
 
 class Heap {
   public:
-    void read(std::ifstream *roInf, Page *p);
-    void build(Page *p, const int &n) const;
-    void remake(const int &left, const int &right, Page *p) const;
-    Page pop(Page *p, int &n) const;
-    void push(Page *p, const Page &q, int &n) const;
+    Heap(const int &size);
+    void read(std::ifstream *roInf);
+    void build(const int &n);
+    void intercalate(std::ifstream *roInf);
+
+  private:
+    void remake(const int &left, const int &right);
+    Page pop();
+    void push(const Page &q);
+
+    Page *pages;
+    int size;
 };
