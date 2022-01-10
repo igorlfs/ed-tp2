@@ -16,17 +16,8 @@ int main(int argc, char *argv[]) {
     Page q[ro + 1]; // q[0] é indefinido (não tem problema no heap)
     std::ifstream roInf[ro + 1];
 
-    for (int i = 1; i <= ro; ++i) {
-        roInf[i].open("rodada-" + std::to_string(i) + ".txt");
-        erroAssert(roInf[i].is_open(),
-                   "Erro ao abrir arquivo de rodada: " << i);
-        roInf[i] >> q[i].URL >> q[i].visits;
-        erroAssert(!roInf[i].bad(),
-                   "Erro ao ler arquivo de rodada para construir heap");
-        q[i].round = i;
-    }
-
     Heap H;
+    H.read(roInf, q);
 
     H.build(q, ro);
     while (ro > 0) {

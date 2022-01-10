@@ -2,6 +2,18 @@
 #include "msgassert.hpp"
 #include <iostream>
 
+void Heap::read(std::ifstream *roInf, Page *p) {
+    for (int i = 1; i <= ro; ++i) {
+        roInf[i].open("rodada-" + std::to_string(i) + ".txt");
+        erroAssert(roInf[i].is_open(),
+                   "Erro ao abrir arquivo de rodada: " << i);
+        roInf[i] >> p[i].URL >> p[i].visits;
+        erroAssert(!roInf[i].bad(),
+                   "Erro ao ler arquivo de rodada para construir heap");
+        p[i].round = i;
+    }
+}
+
 void Heap::build(Page *p, const int &n) const {
     int left = n / 2 + 1;
     while (left > 1) {
