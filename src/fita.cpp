@@ -78,13 +78,7 @@ void Fita::partition(const int &left, const int &right, int *i, int *j,
 }
 
 Page Fita::choosePivot(const Page &a, const Page &b, const Page &c) const {
-    if (a < b) {
-        if (a > c) return a;
-        else if (b < c) return b;
-        return c;
-    } else {
-        if (a < c) return a;
-        if (b < c) return c;
-        return b;
-    }
+    if ((a < b) ^ (a > c)) return a;
+    else if ((b < a) ^ (b < c)) return b;
+    else return c;
 }
