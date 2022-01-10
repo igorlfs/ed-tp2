@@ -5,27 +5,27 @@
 void Fita::read(Page *p, int &n) const {
     for (int i = 0; i < n; ++i) {
         string line;
-        std::getline(inf, line);
+        std::getline(inputFile, line);
         std::stringstream ss(line);
         // Tome cuidado para não chegar ao final do arquivo sem completar o laço
-        if (inf.eof()) n = i;
+        if (inputFile.eof()) n = i;
         ss >> p[i].URL >> p[i].visits;
     }
-    erroAssert(!inf.bad(), "Erro na leitura de rodadas");
+    erroAssert(!inputFile.bad(), "Erro na leitura de rodadas");
 }
 
 void Fita::write(Page *p, const int &n) const {
-    ro++;
-    std::ofstream roOuf;
-    roOuf.open("rodada-" + std::to_string(ro) + ".txt");
-    erroAssert(roOuf.is_open(), "Erro ao abrir arquivo de rodada");
+    roundTracker++;
+    std::ofstream roundOutputFile;
+    roundOutputFile.open("rodada-" + std::to_string(roundTracker) + ".txt");
+    erroAssert(roundOutputFile.is_open(), "Erro ao abrir arquivo de rodada");
 
     for (int i = 0; i < n; ++i)
-        roOuf << p[i].URL << ' ' << p[i].visits << '\n';
+        roundOutputFile << p[i].URL << ' ' << p[i].visits << '\n';
 
-    erroAssert(!roOuf.bad(), "Erro na escrita de rodadas");
-    roOuf.close();
-    erroAssert(!roOuf.is_open(), "Erro ao fechar arquivo de rodada");
+    erroAssert(!roundOutputFile.bad(), "Erro na escrita de rodadas");
+    roundOutputFile.close();
+    erroAssert(!roundOutputFile.is_open(), "Erro ao fechar arquivo de rodada");
 }
 
 void Fita::sortFitas(int &n) {
@@ -36,7 +36,7 @@ void Fita::sortFitas(int &n) {
         read(p, n);
         quickSort(p, n);
         if (n > 0) write(p, n);
-    } while (inf.good());
+    } while (inputFile.good());
 
     delete[] p;
 }

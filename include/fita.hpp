@@ -39,6 +39,6 @@ class Fita {
     Page choosePivot(const Page &a, const Page &b, const Page &c) const;
 };
 
-extern std::ifstream inf;
-extern std::ofstream ouf;
-extern int ro;
+extern std::ifstream inputFile;
+extern std::ofstream outputFile;
+extern int roundTracker;

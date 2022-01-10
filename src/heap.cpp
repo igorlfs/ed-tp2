@@ -8,13 +8,13 @@ Heap::Heap(const int &size) {
     erroAssert(this->pages, "Falha ao alocar dinamicamente a célula.");
 }
 
-void Heap::read(std::ifstream *roInf) {
-    for (int i = 1; i <= ro; ++i) {
-        roInf[i].open("rodada-" + std::to_string(i) + ".txt");
-        erroAssert(roInf[i].is_open(),
+void Heap::read(std::ifstream *roundInputFile) {
+    for (int i = 1; i <= roundTracker; ++i) {
+        roundInputFile[i].open("rodada-" + std::to_string(i) + ".txt");
+        erroAssert(roundInputFile[i].is_open(),
                    "Erro ao abrir arquivo de rodada: " << i);
-        roInf[i] >> this->pages[i].URL >> this->pages[i].visits;
-        erroAssert(!roInf[i].bad(),
+        roundInputFile[i] >> this->pages[i].URL >> this->pages[i].visits;
+        erroAssert(!roundInputFile[i].bad(),
                    "Erro ao ler arquivo de rodada para construir heap");
         this->pages[i].round = i;
     }
@@ -59,24 +59,24 @@ void Heap::push(const Page &q) {
     remake(1, size);
 }
 
-void Heap::intercalate(std::ifstream *roInf) {
+void Heap::intercalate(std::ifstream *roundInputFile) {
     while (this->size > 0) {
         Page x = pop();
         int origin = x.round;
 
-        ouf << x.URL << ' ' << x.visits << '\n';
-        if (!roInf[origin].eof()) {
+        outputFile << x.URL << ' ' << x.visits << '\n';
+        if (!roundInputFile[origin].eof()) {
             Page y;
 
             y.round = origin;
-            roInf[origin] >> y.URL >> y.visits;
-            erroAssert(!roInf[origin].bad(),
+            roundInputFile[origin] >> y.URL >> y.visits;
+            erroAssert(!roundInputFile[origin].bad(),
                        "Erro ao escrever arquivo de rodada");
             // Algumas URLs ficam vazias, mas é fácil contornar isso:
             if (!y.URL.empty()) push(y);
         } else {
-            roInf[origin].close();
-            erroAssert(!roInf[origin].is_open(),
+            roundInputFile[origin].close();
+            erroAssert(!roundInputFile[origin].is_open(),
                        "Erro ao fechar arquivo de rodada");
         }
     }
