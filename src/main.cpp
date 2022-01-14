@@ -1,6 +1,8 @@
 #include "heap.hpp"
+#include "memlog.hpp"
 #include "msgassert.hpp"
 
+memlog ml;
 std::ifstream inputFile;
 std::ofstream outputFile;
 int roundTracker = 0;
@@ -11,6 +13,7 @@ void finish();
 int main(int argc, char *argv[]) {
     int n = init(argc, argv);
     Fita F;
+    ml.ativaMemLog();
     F.sortFitas(n);
 
     Page P[roundTracker + 1]; // q[0] é indefinido (não tem problema no heap)
@@ -21,13 +24,16 @@ int main(int argc, char *argv[]) {
     H.intercalate(roundInputFile);
 
     finish();
-
-    return 0;
+    return ml.finalizaMemLog();
 }
 
 int init(int argc, char *argv[]) {
     erroAssert(argc > 3,
                "Passe os arquivos e número de páginas como parâmetros");
+
+    string inputName = argv[1];
+    string logName = "log-" + inputName;
+    ml.iniciaMemLog(logName);
 
     inputFile.open(argv[1]);
     erroAssert(inputFile.is_open(), "Erro ao abrir arquivo de entrada");
