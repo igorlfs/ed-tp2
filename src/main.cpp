@@ -34,7 +34,10 @@ int init(int argc, char *argv[]) {
     outputFile.open(argv[2]);
     erroAssert(outputFile.is_open(), "Erro ao abrir arquivo de saída");
 
-    return atoi(argv[3]);
+    int n = atoi(argv[3]);
+    erroAssert(n > 0, "O número de páginas deve ser positivo");
+
+    return n;
 }
 
 void finish() {
