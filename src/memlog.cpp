@@ -1,5 +1,6 @@
 #include "memlog.hpp"
 #include "msgassert.hpp"
+#include <iomanip>
 
 // Descrição: calcula a diferença entre t2 e t1, que é armazenada em resultado
 // Entrada: t1, t2, resultado
@@ -154,5 +155,25 @@ int memlog::finalizaMemLog() {
 
     // atualiza variável de estado
     this->ativo = MLINATIVO;
+    return result;
+}
+
+int memlog::intermediarioMemLog() {
+    // captura o tempo atual
+    struct timespec tp, tdif;
+    int result = clock_gettime(this->clk_id, &tp);
+
+    // calcula a diferença com o tempo inicial
+    clockDifference(this->inittime, tp, &tdif);
+
+    // atualiza contador
+    this->count++;
+
+    // imprime registro final e verifica se houve algum erro
+    this->log << "M " << this->count << ' ' << tdif.tv_sec << '.'
+              << std::setfill('0') << std::setw(9) << tdif.tv_nsec;
+    this->log.put('\n');
+    erroAssert(!this->log.fail(), "Não foi possível escrever registro");
+
     return result;
 }
