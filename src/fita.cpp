@@ -46,8 +46,12 @@ void Fita::sort(const int &left, const int &right, Page *p) const {
 
     partition(left, right, &i, &j, p);
 
-    if (left < j) sort(left, j, p);
-    if (i < right) sort(i, right, p);
+    if (right - left <= 25) {
+        insertionSort(p, right - left);
+    } else {
+        if (left < j) sort(left, j, p);
+        if (i < right) sort(i, right, p);
+    }
 }
 
 void Fita::partition(const int &left, const int &right, int *i, int *j,
@@ -68,7 +72,6 @@ void Fita::partition(const int &left, const int &right, int *i, int *j,
             (*j)--;
 
         if (*i <= *j) {
-            // TODO: usar insertionSort para vetores pequenos
             std::swap(p[*i], p[*j]);
 
             (*i)++;
@@ -81,4 +84,17 @@ Page Fita::choosePivot(const Page &a, const Page &b, const Page &c) const {
     if ((a < b) ^ (a > c)) return a;
     else if ((b < a) ^ (b < c)) return b;
     else return c;
+}
+
+void Fita::insertionSort(Page *p, const int &n) const {
+    Page aux;
+    for (int i = 0; i < n; ++i) {
+        aux = p[i];
+        int j = i - 1;
+        while ((j >= 0) && (aux < p[j])) {
+            p[j + 1] = p[j];
+            j--;
+        }
+        p[j + 1] = aux;
+    }
 }
