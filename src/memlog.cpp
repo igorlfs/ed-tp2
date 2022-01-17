@@ -138,14 +138,18 @@ int memlog::geralMemLog(const char &c, const long int &pos,
 int memlog::finalizaMemLog() {
 
     // captura o tempo atual
-    struct timespec tp;
+    struct timespec tp, tdif;
     int result = clock_gettime(this->clk_id, &tp);
+
+    // calcula a diferença com o tempo inicial
+    clockDifference(this->inittime, tp, &tdif);
 
     // atualiza contador
     this->count++;
 
     // imprime registro final e verifica se houve algum erro
-    this->log << "F " << this->count << ' ' << tp.tv_sec << '.' << tp.tv_nsec;
+    this->log << "F " << this->count << ' ' << tdif.tv_sec << '.'
+              << std::setfill('0') << std::setw(9) << tdif.tv_nsec;
     this->log.put('\n');
     erroAssert(!this->log.fail(), "Não foi possível escrever registro");
 
