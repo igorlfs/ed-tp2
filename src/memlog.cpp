@@ -84,7 +84,7 @@ int memlog::defineId(const int &id) {
 
 // Descrição: registra acesso de leitura de tam bytes na posição pos
 // Entrada: pos,tam
-// Saída: resultado da obtencao do relogio
+// Saída: resultado da obtenção do relogio
 int memlog::leMemLog(const long int &pos, const long int &tam, const int &id) {
     this->defineId(id);
     char op = LEITURA;
@@ -134,7 +134,7 @@ int memlog::geralMemLog(const char &c, const long int &pos,
 
 // Descrição: finaliza o registro de acessos à memória
 // Entrada: --
-// Saída: resultado da obtemção do relógio
+// Saída: resultado da obtenção do relógio
 int memlog::finalizaMemLog() {
 
     // captura o tempo atual
@@ -162,6 +162,9 @@ int memlog::finalizaMemLog() {
     return result;
 }
 
+// Descrição: registra uma etapa intermediária de acessos à memória
+// Entrada: --
+// Saída: resultado da obtenção do relógio
 int memlog::intermediarioMemLog() {
     // captura o tempo atual
     struct timespec tp, tdif;
