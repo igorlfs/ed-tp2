@@ -16,7 +16,6 @@ int main(int argc, char *argv[]) {
     ml.ativaMemLog();
     F.sortFitas(numPages);
 
-    ml.intermediarioMemLog();
     Page P[roundTracker + 1]; // q[0] é indefinido (não tem problema no heap)
     std::ifstream roundInputFile[roundTracker + 1];
     Heap H(roundTracker);
