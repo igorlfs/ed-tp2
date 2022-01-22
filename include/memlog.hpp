@@ -22,6 +22,7 @@ class memlog {
     int leMemLog(const long int &pos, const long int &tam, const int &id);
     int escreveMemLog(const long int &pos, const long int &tam, const int &id);
     int finalizaMemLog();
+    int intermediarioMemLog();
 
     // esse membro é público porque assim evitamos uma chamada de função na mac
     // o (seria meio bobo usar um getter aqui quando o que queremos é 

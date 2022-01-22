@@ -11,10 +11,10 @@ int init(int argc, char *argv[]);
 void finish();
 
 int main(int argc, char *argv[]) {
-    int n = init(argc, argv);
+    int numPages = init(argc, argv);
     Fita F;
     ml.ativaMemLog();
-    F.sortFitas(n);
+    F.sortFitas(numPages);
 
     ml.intermediarioMemLog();
     Page P[roundTracker + 1]; // q[0] é indefinido (não tem problema no heap)
