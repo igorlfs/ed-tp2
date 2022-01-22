@@ -47,7 +47,7 @@ void Fita::sort(const int &left, const int &right, Page *p) const {
     partition(left, right, &i, &j, p);
 
     if (right - left <= 25) {
-        insertionSort(p, right - left);
+        insertionSort(p, left, right);
     } else {
         if (left < j) sort(left, j, p);
         if (i < right) sort(i, right, p);
@@ -86,12 +86,11 @@ Page Fita::choosePivot(const Page &a, const Page &b, const Page &c) const {
     else return c;
 }
 
-void Fita::insertionSort(Page *p, const int &n) const {
-    Page aux;
-    for (int i = 0; i < n; ++i) {
-        aux = p[i];
+void Fita::insertionSort(Page *p, const int low, const int &n) const {
+    for (int i = low; i <= n; ++i) {
+        Page aux = p[i];
         int j = i - 1;
-        while ((j >= 0) && (aux < p[j])) {
+        while ((j >= low) && (aux > p[j])) {
             p[j + 1] = p[j];
             j--;
         }

@@ -37,7 +37,7 @@ class Fita {
     void partition(const int &left, const int &right, int *i, int *j,
                    Page *p) const;
     Page choosePivot(const Page &a, const Page &b, const Page &c) const;
-    void insertionSort(Page *p, const int &n) const;
+    void insertionSort(Page *p, const int low, const int &n) const;
 };
 
 extern std::ifstream inputFile;
