@@ -25,4 +25,4 @@ $(OBJ)/main.o: $(INC)/memlog.hpp $(INC)/heap.hpp $(SRC)/main.cpp
 	$(CC) $(CFLAGS) -c $(SRC)/main.cpp -o $(OBJ)/main.o
 
 clean:
-	rm -rI $(OBJ)/* $(BIN)/*
+	rm -rI $(OBJ)/* $(BIN)/binary
