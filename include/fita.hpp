@@ -6,8 +6,8 @@
 using std::string;
 
 struct Page {
-    int visits;
     string URL;
+    int visits;
     int round{0};
 };
 
@@ -28,10 +28,10 @@ inline bool operator>=(const Page &lhs, const Page &rhs) {
 class Fita {
   public:
     void sortFitas(int &n);
+    void quickSort(Page *p, const int &n) { sort(0, n - 1, p); }
 
   private:
     void read(Page *p, int &n) const;
-    void quickSort(Page *p, const int &n) { sort(0, n - 1, p); }
     void write(Page *p, const int &n) const;
     void sort(const int &left, const int &right, Page *p) const;
     void partition(const int &left, const int &right, int *i, int *j,
