@@ -65,19 +65,19 @@ void Heap::intercalate(std::ifstream *roundInputFile) {
 
         outputFile << x.URL << ' ' << x.visits << '\n';
         erroAssert(!outputFile.bad(), "Erro ao escrever arquivo de rodada");
-        if (!roundInputFile[origin].eof()) {
+        if (roundInputFile[origin].is_open()) {
             Page y;
 
             y.round = origin;
             roundInputFile[origin] >> y.URL >> y.visits;
             erroAssert(!roundInputFile[origin].bad(),
                        "Erro ao escrever arquivo de rodada");
-            // Algumas URLs ficam vazias, mas é fácil contornar isso:
-            if (!y.URL.empty()) push(y);
-        } else {
-            roundInputFile[origin].close();
-            erroAssert(!roundInputFile[origin].is_open(),
-                       "Erro ao fechar arquivo de rodada");
+
+            if (roundInputFile[origin].eof()) {
+                roundInputFile[origin].close();
+                erroAssert(!roundInputFile[origin].is_open(),
+                           "Erro ao fechar arquivo de rodada");
+            } else push(y);
         }
     }
 }
