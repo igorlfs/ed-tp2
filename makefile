@@ -24,5 +24,11 @@ $(OBJ)/heap.o: $(INC)/memlog.hpp $(INC)/heap.hpp $(SRC)/heap.cpp
 $(OBJ)/main.o: $(INC)/memlog.hpp $(INC)/heap.hpp $(SRC)/main.cpp
 	$(CC) $(CFLAGS) -c $(SRC)/main.cpp -o $(OBJ)/main.o
 
+test: $(OBJ)/memlog.o $(OBJ)/fita.o $(OBJ)/heap.o $(OBJ)/test.o
+	$(CC) -o $(BIN)/test $(OBJ)/memlog.o $(OBJ)/fita.o $(OBJ)/heap.o $(OBJ)/test.o -lgtest
+
+$(OBJ)/test.o: $(INC)/memlog.hpp $(INC)/heap.hpp $(SRC)/test.cpp
+	$(CC) $(CFLAGS) -c $(SRC)/test.cpp -o $(OBJ)/test.o
+
 clean:
-	rm -rI $(OBJ)/* $(BIN)/binary
+	rm -rI $(OBJ)/* $(BIN)/binary $(BIN)/test
