@@ -44,10 +44,9 @@ void Heap::remake(const int &left, const int &right) {
 }
 
 Page Heap::pop() {
-    Page max;
-    erroAssert(size >= 1, "Heap vazio, não é possível remover");
-    max = this->pages[1];
-    this->pages[1] = this->pages[size];
+    erroAssert(this->size >= 1, "Heap vazio, não é possível remover");
+    Page max = this->pages[1];
+    this->pages[1] = this->pages[this->size];
     this->size--;
     remake(1, this->size);
     return max;
