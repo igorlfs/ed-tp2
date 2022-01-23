@@ -5,12 +5,10 @@ SRC = src
 OBJ = obj
 BIN = bin
 
-EXE = $(BIN)/binary
-
 CFLAGS = -Wall -Wextra -I$(INC) -std=c++17 -g
 
-$(EXE): $(OBJ)/memlog.o $(OBJ)/fita.o $(OBJ)/heap.o $(OBJ)/main.o
-	$(CC) -o $(EXE) $(OBJ)/*.o
+$(BIN)/binary: $(OBJ)/memlog.o $(OBJ)/fita.o $(OBJ)/heap.o $(OBJ)/main.o
+	$(CC) -o $(BIN)/binary $(OBJ)/memlog.o $(OBJ)/fita.o $(OBJ)/heap.o $(OBJ)/main.o
 
 $(OBJ)/memlog.o: $(INC)/memlog.hpp $(SRC)/memlog.cpp
 	$(CC) $(CFLAGS) -c $(SRC)/memlog.cpp -o $(OBJ)/memlog.o
