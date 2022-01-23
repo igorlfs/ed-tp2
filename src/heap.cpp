@@ -55,7 +55,7 @@ Page Heap::pop() {
 void Heap::push(const Page &q) {
     this->size++;
     this->pages[this->size] = q;
-    remake(1, this->size);
+    build(this->size);
 }
 
 void Heap::intercalate(std::ifstream *roundInputFile) {
