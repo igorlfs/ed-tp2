@@ -64,6 +64,7 @@ void Heap::intercalate(std::ifstream *roundInputFile) {
         int origin = x.round;
 
         outputFile << x.URL << ' ' << x.visits << '\n';
+        erroAssert(!outputFile.bad(), "Erro ao escrever arquivo de rodada");
         if (!roundInputFile[origin].eof()) {
             Page y;
 
