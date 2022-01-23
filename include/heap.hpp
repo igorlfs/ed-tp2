@@ -5,6 +5,7 @@
 class Heap {
   public:
     Heap(const int &size);
+    ~Heap() { delete[] pages; }
     void read(std::ifstream *roInf);
     void build(const int &n);
     void intercalate(std::ifstream *roInf);
