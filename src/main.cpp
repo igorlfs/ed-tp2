@@ -16,6 +16,14 @@ int main(int argc, char *argv[]) {
     ml.ativaMemLog();
     F.sortFitas(numPages);
 
+    // Caso o parâmetro passado seja MAIOR que o número de linhas no arquivo
+    // Não é necessário intercalar e basta renomear o arquivo da rodada pro
+    // arquivo final
+    if (roundTracker == 1) {
+        rename("rodada-1.txt", argv[2]);
+        return ml.finalizaMemLog();
+    }
+
     Page P[roundTracker + 1]; // P[0] é indefinido (não tem problema no heap)
     std::ifstream roundInputFile[roundTracker + 1];
     Heap H(roundTracker);
