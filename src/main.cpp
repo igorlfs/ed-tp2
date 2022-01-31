@@ -13,7 +13,6 @@ void finish();
 int main(int argc, char *argv[]) {
     int numPages = init(argc, argv);
     Fita F;
-    ml.ativaMemLog();
     F.sortFitas(numPages);
 
     // Caso o parâmetro passado seja MAIOR que o número de linhas no arquivo
