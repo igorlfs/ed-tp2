@@ -125,8 +125,8 @@ int memlog::geralMemLog(const char &c, const long int &pos,
 
     // imprime registro e verifica se houve algum erro
     this->log << c << ' ' << this->fase << ' ' << this->count << ' ' << this->id
-              << ' ' << tdif.tv_sec << '.' << tdif.tv_nsec << ' ' << pos << ' '
-              << tam << '\n';
+              << ' ' << tdif.tv_sec << '.' << std::setfill('0') << std::setw(9)
+              << tdif.tv_nsec << ' ' << pos << ' ' << tam << '\n';
     erroAssert(!this->log.fail(), "Não foi possível escrever registro");
 
     return result;
@@ -148,8 +148,10 @@ int memlog::finalizaMemLog() {
     this->count++;
 
     // imprime registro final e verifica se houve algum erro
-    this->log << "F " << this->count << ' ' << tdif.tv_sec << '.'
-              << std::setfill('0') << std::setw(9) << tdif.tv_nsec;
+    this->log << "F " << this->count << ' ' << tp.tv_sec << '.'
+              << std::setfill('0') << std::setw(9) << tp.tv_nsec << ' '
+              << tdif.tv_sec << '.' << std::setfill('0') << std::setw(9)
+              << tdif.tv_nsec;
     this->log.put('\n');
     erroAssert(!this->log.fail(), "Não foi possível escrever registro");
 
