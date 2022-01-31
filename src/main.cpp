@@ -24,7 +24,8 @@ int main(int argc, char *argv[]) {
         return ml.finalizaMemLog();
     }
 
-    Page P[roundTracker + 1]; // P[0] é indefinido (não tem problema no heap)
+    // P[0] é indefinido (não tem problema no heap)
+    Page P[roundTracker + 1];
     std::ifstream roundInputFile[roundTracker + 1];
     Heap H(roundTracker);
     H.read(roundInputFile);
