@@ -20,6 +20,7 @@ int main(int argc, char *argv[]) {
     // arquivo final
     if (roundTracker == 1) {
         rename("rodada-1.txt", argv[2]);
+        finish();
         return ml.finalizaMemLog();
     }
 
